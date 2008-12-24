@@ -1,0 +1,34 @@
+Growl4Rails
+==============
+ 
+Growl4Rails is a javascript component that provides the UI for growl-like notifications in your rails application.
+
+This plugin requires Prototype 1.6 or higher and Scriptaculous 1.7 or higher.
+ 
+Usage
+=====
+
+In your view put the following:
+
+<%= growl4rails_includes %>
+
+Then when you'd like the Growl window to appear:
+
+<script type="text/javascript" language="javascript">
+  Growl.show("/images/download.png", "Foo Bar.pdf", "File is ready for download.");
+</script>
+
+Growl.show method takes 3 arguments:
+
+image - 32x32 icon
+title - title of the growl
+message - the growl message
+ 
+Authors
+=======
+ 
+Jim Fiorato -- http://www.writebetterbits.com
+Original implementation
+ 
+Contributors
+============

@@ -1,0 +1,77 @@
+#growl_container {
+  position: absolute; 
+  top: 10px;
+  width: 379px;
+  z-index: 1001;
+  cursor:pointer;
+  cursor:hand;
+}
+#growl_tl {
+  position: absolute; 
+  top: 10px;
+  width: 28px;
+  height: 26px;
+  z-index: 1000;
+}
+#growl_top {
+  position: absolute; 
+  top: 10px;
+  width: 323px;
+  height: 26px;
+  z-index: 1000;
+  background-image: url(/images/growl4rails/top.png);
+  background-repeat: repeat-x;
+}
+#growl_tr {
+  position: absolute; 
+  top: 10px;
+  width: 28px;
+  height: 26px;
+  z-index: 1000;
+}
+#growl_body {
+  position: absolute;
+  top: 36px;
+  width: 379px;
+  z-index: 1000;
+  background-image: url(/images/growl4rails/body.png);
+  background-repeat: repeat-y;
+  cursor: hand;
+}
+#growl_body_text {
+  color: #FFF;
+  margin-left: 25px;
+  margin-right: 30px;
+  font-family: arial;
+  z-index: 1000;
+}
+#growl_body_text .growl_title {
+  font-size: 11pt;
+  font-weight: bold;
+}
+#growl_bl {
+  position: absolute; 
+  width: 28px;
+  height: 32px;
+  z-index: 1000;
+}
+#growl_bottom {
+  position: absolute; 
+  width: 323px;
+  height: 28px;
+  z-index: 1000;
+  background-image: url(/images/growl4rails/bottom.png);
+  background-repeat: repeat-x;
+}
+#growl_br {
+  position: absolute; 
+  width: 28px;
+  height: 32px;
+  z-index: 1000;
+}
+#growl_ico {
+  width: 32px;
+  height: 32px;
+  padding-right: 5px;
+  z-index: 1000;
+}
