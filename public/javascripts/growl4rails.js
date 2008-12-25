@@ -80,12 +80,18 @@ var Growl = Class.create({
     });
     
     this.growl_container.observe('mouseout', function(event) {
-      this.timeout = setTimeout("Growl.hide()",5000);
+      this.timeout = setTimeout("Growl.hide()", 3000);
       Growl.unhighlight();
     });
   },
   
-  show: function(img, title, message) {
+  show: function(img, title, message, duration) {
+    
+    if(duration)
+      this.duration = duration;
+    else
+      this.duration = 5000;
+    
     if(this.showing) return;
     this.showing = true;
     
@@ -169,7 +175,7 @@ var Growl = Class.create({
       Effect.Appear(this.growl_right);
     }
     
-    this.timeout = setTimeout("Growl.hide()",5000);
+    this.timeout = setTimeout("Growl.hide()", this.duration);
   },
   
   hide: function() {
@@ -217,9 +223,9 @@ Event.observe(window, 'load', function(event) {
   _growl = new Growl();
 });
 
-Growl.show = function(img, title, message) {
+Growl.show = function(img, title, message, duration) {
   if(!_growl) _growl = new Growl();
-  _growl.show(img, title, message);
+  _growl.show(img, title, message, duration);
 };
 
 Growl.hide = function() {

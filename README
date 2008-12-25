@@ -30,7 +30,7 @@ In your view put the following:
 Then when you'd like the Growl window to appear:
 
 <script type="text/javascript" language="javascript">
-  Growl.show("/images/download.png", "Foo Bar.pdf", "File is ready for download.");
+  Growl.show("/images/download.png", "Foo Bar.pdf", "File is ready for download.", 5000);
 </script>
 
 Growl.show method takes 3 arguments:
@@ -38,6 +38,7 @@ Growl.show method takes 3 arguments:
 image - 32x32 icon
 title - title of the growl
 message - the growl message
+duration - the length of time (in milliseconds) that the growl window shows
  
 Authors
 =======
