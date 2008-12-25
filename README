@@ -14,7 +14,7 @@ $ script/plugin install git://github.com/jfiorato/growl4rails.git
 
 For older versions of Rails, cd into your application's vendor/plugins, and execute the following:
 
-$ git clone --dept 1 git://github.com/jfiorato/growl4rails.git
+$ git clone --depth 1 git://github.com/jfiorato/growl4rails.git
 $ mkdir ../../public/javascripts/growl4rails ../../public/stylesheets/growl4rails ../../public/images/growl4rails
 $ cp growl4rails/public/javascripts/* ../../public/javascripts/growl4rails/
 $ cp growl4rails/public/stylesheets/* ../../public/stylesheets/growl4rails/
