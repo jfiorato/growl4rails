@@ -40,10 +40,10 @@ max_showing = The maximum number of growls to show at one time.
 Then when you'd like the Growl window to appear:
 
 <script type="text/javascript" language="javascript">
-  Growl.show({image_path:"/images/download.png", title:"Foo Bar.pdf", message:"File is ready for download."});
+  Growl4Rails.showGrowl({image_path:"/images/download.png", title:"Foo Bar.pdf", message:"File is ready for download."});
 </script>
 
-Growl.show method takes a single hash as an argument.  The hash can have the following keys:
+Growl4Rails.showGrowl method takes a single hash as an argument.  The hash can have the following keys:
 
 image_path - 32x32 icon
 title - title of the growl
@@ -52,7 +52,7 @@ message - the growl message
 To handle the 'click' event from the Growl, you can do the following:
 
 <script type="text/javascript" language="javascript">
-  var growl_id = Growl.show({image_path:"/images/download.png", title:"Foo Bar.pdf", message:"File is ready for download."});
+  var growl_id = Growl4Rails.showGrowl({image_path:"/images/download.png", title:"Foo Bar.pdf", message:"File is ready for download."});
   
   document.observe(growl_id + ':clicked', function(event) {
     console.log('Growl %s was clicked.', Event.findElement(event).id);
