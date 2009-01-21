@@ -166,6 +166,7 @@ Growl4Rails.mouseOut = function(event) {
 
 Growl4Rails.click = function(event) {
   growl_cell = Growl4Rails.findGrowlIdByDescendant(Event.findElement(event));
+  Growl4Rails.hideGrowl(growl_cell.id);
   growl_cell.fire(growl_cell.id + ':clicked');
 };
 
