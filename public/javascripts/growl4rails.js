@@ -1,254 +1,222 @@
-var Growl = Class.create({
-  initialize: function() { 
-    //top left image
-    this.growl_tl = document.createElement('IMG');
-    this.growl_tl.id = 'growl_tl';
-    this.growl_tl.src = '/images/growl4rails/corner_ul.png';
-    this.growl_tl.className = 'growl';
-    document.body.appendChild(this.growl_tl);
-    $('growl_tl').hide();
-    
-    //top div
-    this.growl_top = document.createElement('DIV');
-    this.growl_top.id = 'growl_top';
-    this.growl_top.className = 'growl';
-    document.body.appendChild(this.growl_top);
-    $('growl_top').hide();
-    
-    //top right image
-    this.growl_tr = document.createElement('IMG');
-    this.growl_tr.id = 'growl_tr';
-    this.growl_tr.src = '/images/growl4rails/corner_ur.png';
-    this.growl_tr.className = 'growl';
-    document.body.appendChild(this.growl_tr);
-    $('growl_tr').hide();
-    
-    //left div
-    this.growl_left = document.createElement('DIV');
-    this.growl_left.id = 'growl_left';
-    this.growl_left.className = 'growl';
-    document.body.appendChild(this.growl_left);
-    $('growl_left').hide();
-    
-    //body div
-    this.growl_body = document.createElement('DIV');
-    this.growl_body.id = 'growl_body';
-    this.growl_body.className = 'growl';
-    document.body.appendChild(this.growl_body);
-    $('growl_body').hide();
-    
-    //right div
-    this.growl_right = document.createElement('DIV');
-    this.growl_right.id = 'growl_right';
-    this.growl_right.className = 'growl';
-    document.body.appendChild(this.growl_right);
-    $('growl_right').hide();
-    
-    //bottom left image
-    this.growl_bl = document.createElement('IMG');
-    this.growl_bl.id = 'growl_bl';
-    this.growl_bl.src = '/images/growl4rails/corner_ll.png';
-    this.growl_bl.className = 'growl';
-    document.body.appendChild(this.growl_bl);
-    $('growl_bl').hide();
-    
-    //bottom image
-    this.growl_bottom = document.createElement('DIV');
-    this.growl_bottom.id = 'growl_bottom';
-    this.growl_bottom.className = 'growl';
-    document.body.appendChild(this.growl_bottom);
-    $('growl_bottom').hide();
-    
-    //bottom right image
-    this.growl_br = document.createElement('IMG');
-    this.growl_br.id = 'growl_br';
-    this.growl_br.src = '/images/growl4rails/corner_lr.png';
-    this.growl_br.className = 'growl';
-    document.body.appendChild(this.growl_br);
-    $('growl_br').hide();
-    
-    //add container (this is for easier mouseover code.)
-    this.growl_container = document.createElement('DIV');
-    this.growl_container.id = 'growl_container';
-    this.growl_container.className = 'growl';
-    document.body.appendChild(this.growl_container);
-    $('growl_container').hide();
-    
-    this.growl_container.observe('mouseover', function(event) {
-      Growl.cancelTimeout();
-      Growl.highlight();
-    });
-    
-    this.growl_container.observe('mouseout', function(event) {
-      this.timeout = setTimeout("Growl.hide()", 3000);
-      Growl.unhighlight();
-    });
-  },
-  
-  show: function(img, title, message, duration) {
-    
-    if(duration)
-      this.duration = duration;
-    else
-      this.duration = 5000;
-    
-    if(this.showing) return;
-    this.showing = true;
-    
-    //clear any child elements;
-    if(this.growl_ico)
-      this.growl_body.removeChild(this.growl_ico);
+var templateHTML = '<div id="#{id}" class="growl4rails_cell" style="display:none;">\
+<table cellspacing="0" cellpadding="0">\
+  <thead>\
+    <tr>\
+      <td><div class="growl4rails_corner_ul"></div></td>\
+      <td><div class="growl4rails_top"></div></td>\
+      <td><div class="growl4rails_corner_ur"></div></td>\
+    </tr>\
+  </thead>\
+  <tbody>\
+    <tr>\
+      <td colspan="3">\
+        <div class="growl4rails_body" id="growl4rails_body_#{id}"></div>\
+      </td>\
+    </tr>\
+  </tbody>\
+  <thead>\
+    <tr>\
+      <td><div class="growl4rails_corner_ll"></div></td>\
+      <td><div class="growl4rails_bottom"></div></td>\
+      <td><div class="growl4rails_corner_lr"></div></td>\
+    </tr>\
+  </thead>\
+</table>\
+<div id="growl4rails_info_#{id}" class="growl4rails_info">\
+  <img src="#{img}" class="growl4rails_image" align="left" />\
+  <div class="growl4rails_title">#{title}</div>\
+  <div class="growl4rails_message">#{message}<div>\
+</div>\
+</div>';
 
-    if(this.growl_title)
-      this.growl_body.removeChild(this.growl_title);
-        
-    if(this.growl_text)
-      this.growl_body.removeChild(this.growl_text);
-      
-    this.growl_ico = document.createElement('IMG');
-    this.growl_ico.id = 'growl_ico';
-    this.growl_ico.align = 'left';
-    this.growl_body.appendChild(this.growl_ico);
-    
-    this.growl_title = document.createElement('DIV');
-    this.growl_title.id = 'growl_title';
-    this.growl_title.className = 'growl_title';
-    this.growl_body.appendChild(this.growl_title);
-    
-    this.growl_text = document.createElement('DIV');
-    this.growl_text.id = 'growl_text';
-    this.growl_body.appendChild(this.growl_text);
-    
-    this.growl_ico.src = img;
-    $('growl_title').insert(title);
-    $('growl_text').insert(message);
-    
-    left = document.viewport.getWidth() - 400;
-    
-    this.growl_tl.style.left = left + 'px';
-    this.growl_top.style.left = (left + 39) + 'px';
-    this.growl_tr.style.left = (left + 340) + 'px';
-    this.growl_body.style.left = (left + 39) + 'px';
-    
-    if(Prototype.Browser.IE) {
-      $('growl_tl').show();
-      $('growl_top').show();
-      $('growl_tr').show();
-      $('growl_body').show();
-    } else {
-      Effect.Appear(this.growl_tl);
-      Effect.Appear(this.growl_top); 
-      Effect.Appear(this.growl_tr);
-      Effect.Appear(this.growl_body);
-    }
-    
-    //need to wait until the top and body appears in order to get proper position for the bottom, sides and container
-    height = this.growl_body.getHeight();
-    
-    this.growl_left.style.left = left + 'px';
-    this.growl_left.style.height = (height - 24) + 'px';
-    this.growl_right.style.left = (left + 340) + 'px';
-    this.growl_right.style.height = (height - 24) + 'px';
-    
-    this.growl_bl.style.left = left + 'px';
-    this.growl_bl.style.top = (height + 27) + 'px';//height + 10 + 41 - 25
-    this.growl_bottom.style.left = (left + 39) + 'px';
-    this.growl_bottom.style.top = (height + 36) + 'px';
-    this.growl_br.style.left = (left + 340) + 'px';
-    this.growl_br.style.top = (height + 27) + 'px';
-    this.growl_container.style.left = left + 'px';
-    this.growl_container.style.height = (height + 91) + 'px';
-    
-    this.growl_container.show();
-    
-    if(Prototype.Browser.IE) {
-      $('growl_bl').show();
-      $('growl_bottom').show();
-      $('growl_br').show();
-      $('growl_left').show();
-      $('growl_right').show();
-    } else {
-      Effect.Appear(this.growl_bl);
-      Effect.Appear(this.growl_bottom); 
-      Effect.Appear(this.growl_br);
-      Effect.Appear(this.growl_left);
-      Effect.Appear(this.growl_right);
-    }
-    
-    this.timeout = setTimeout("Growl.hide()", this.duration);
-  },
+var growl4rails_template = new Template(templateHTML);
+
+var growl4rails_instance_count = 0;
+var growl4rails_current_showing = 0;
+var growl4rails_queue = [];
+var growl4rails_limit_reached = false;
+var growl4rails_timer_hash = new Hash();
+
+var Growl4Rails = Class.create();
+
+Growl4Rails.showGrowl = function(arguments) {
   
-  hide: function() {
-    if(Prototype.Browser.IE) {
-      $$('.growl').invoke('hide');
-    } else {
-      $$('.growl').each(function(element) {
-        Effect.Fade(element);
+  //if we're not showing maximum number of growls then show it, otherwise queue it up
+  if(growl4rails_current_showing >= growl4rails_max_showing)
+    growl4rails_limit_reached = true;
+  
+  //generate a unique id for this growl
+  var growl_cell_id = $H(arguments).get('growl_id');
+  if(growl_cell_id == null)
+    growl_cell_id = 'growl4rails_cell_' + (growl4rails_instance_count++);
+    
+  if(!growl4rails_limit_reached) {
+    growl4rails_current_showing++;
+    
+    //add it to the document
+    var data = {
+      id:growl_cell_id, 
+      title:$H(arguments).get('title'), 
+      img:$H(arguments).get('image_path'), 
+      message:$H(arguments).get('message')
+    };
+    
+    //get the other growls before we add this one so we can position
+    var other_growls = $$('.growl4rails_cell');
+    
+    Element.insert(document.body, growl4rails_template.evaluate(data));
+    
+    //position the growl
+    $(growl_cell_id).style.left = (document.viewport.getWidth() - 400) + 'px';
+    
+    if(other_growls.length > 0) {
+      var top_position = 0;
+      other_growls.each(function(growl) {
+        top_position += growl.getHeight();
       });
+      $(growl_cell_id).style.top = (document.viewport.getScrollOffsets().top + top_position + 10) + 'px';
+    } else {
+      $(growl_cell_id).style.top = (document.viewport.getScrollOffsets().top + 10) + 'px';
     }
-    setTimeout("Growl.setShowing()", 1000);
-  },
+    
+    //position the text and image
+    $('growl4rails_info_' + growl_cell_id).style.top = ($(growl_cell_id).viewportOffset().top + 28) + 'px';
+    $('growl4rails_info_' + growl_cell_id).style.left = 28 + 'px';
+  
+    //wire up the growl mouse events
+    $(growl_cell_id).observe('mouseover', Growl4Rails.mouseOver);
+    $(growl_cell_id).observe('mouseout', Growl4Rails.mouseOut);
+    $(growl_cell_id).observe('click', Growl4Rails.click);
+    
+    //Temporary until we've got better support for opacity and alpha transparency
+    if(Prototype.Browser.IE)
+      $(growl_cell_id).show();
+    else
+      Effect.Appear(growl_cell_id);
+    
+    $('growl4rails_body_' + growl_cell_id).style.height = ($('growl4rails_info_' + growl_cell_id).getDimensionsPatched().height - 20) + 'px';
+    
+    //set it up to disappear
+    var timer = setTimeout("Growl4Rails.hideGrowl('" + growl_cell_id + "')", growl4rails_duration);
+    growl4rails_timer_hash.set(growl_cell_id, timer);
+  } else {
+    growl4rails_queue.push($H({
+      growl_id:growl_cell_id, 
+      image_path:$H(arguments).get('image_path'), 
+      title:$H(arguments).get('title'), 
+      message:$H(arguments).get('message')
+    }));
+  }
+  return growl_cell_id;
+}
 
-  cancelTimeout: function() {
-    if(this.timeout)
-      clearTimeout(this.timeout);
-  },
+Growl4Rails.hideGrowl = function(growl_cell_id) {
+  growl4rails_timer_hash.unset(growl_cell_id);
+  if(Prototype.Browser.IE) 
+    $(growl_cell_id).hide();
+  else
+    Effect.Fade(growl_cell_id, { duration: 1.0 });
+    
+  setTimeout("Growl4Rails.removeGrowl('" + growl_cell_id + "')", 1000);
+};
+
+Growl4Rails.removeGrowl = function(growl_cell_id) {
+  growl4rails_current_showing--;
+  $(growl_cell_id).remove();
   
-  highlight: function() {
-    this.growl_tl.src = '/images/growl4rails/corner_ul_hi.png';
-    this.growl_tr.src = '/images/growl4rails/corner_ur_hi.png';
-    this.growl_bl.src = '/images/growl4rails/corner_ll_hi.png';
-    this.growl_br.src = '/images/growl4rails/corner_lr_hi.png';
-    this.growl_top.style.backgroundImage = 'url(/images/growl4rails/top_hi.png)';
-    this.growl_bottom.style.backgroundImage = 'url(/images/growl4rails/bottom_hi.png)';
-    this.growl_left.style.backgroundImage = 'url(/images/growl4rails/left_hi.png)';
-    this.growl_right.style.backgroundImage = 'url(/images/growl4rails/right_hi.png)';
-  },
-  
-  unhighlight: function() {
-    this.growl_tl.src = '/images/growl4rails/corner_ul.png';
-    this.growl_tr.src = '/images/growl4rails/corner_ur.png';
-    this.growl_bl.src = '/images/growl4rails/corner_ll.png';
-    this.growl_br.src = '/images/growl4rails/corner_lr.png';
-    this.growl_top.style.backgroundImage = 'url(/images/growl4rails/top.png)';
-    this.growl_bottom.style.backgroundImage = 'url(/images/growl4rails/bottom.png)';
-    this.growl_left.style.backgroundImage = 'url(/images/growl4rails/left.png)';
-    this.growl_right.style.backgroundImage = 'url(/images/growl4rails/right.png)';
+  //if this is the last growl, fire an event so we can show more, if there are any
+  if(growl4rails_current_showing == 0) {
+    growl4rails_limit_reached = false;
+    document.fire('growl4rails:lastgrowlshown');
+  }
+};
+
+var mouseOverClasses = ['growl4rails_corner_ul', 'growl4rails_top', 'growl4rails_corner_ur', 
+          'growl4rails_body', 'growl4rails_corner_ll', 'growl4rails_bottom', 'growl4rails_corner_lr'];
+
+Growl4Rails.mouseOver = function(event) {
+  //bunch of hoo-ha to make sure we're not handling bubbled mouseover events.
+  var relatedTarget = event.relatedTarget;
+  var currentTarget = event.currentTarget ? event.currentTarget : event.srcElement;           
+  if (relatedTarget && relatedTarget.nodeType == Node.TEXT_NODE) relatedTarget = relatedTarget.parentNode;   
+  if (relatedTarget && relatedTarget != currentTarget && !Element.descendantOf(relatedTarget, currentTarget)) {
+    growl_cell = Growl4Rails.findGrowlIdByDescendant(Event.findElement(event));
+    mouseOverClasses.each(function(item) {
+     $$('#' + growl_cell.id + ' .' + item)[0].toggleClassName(item + '_hi');
+    });
+    timer = growl4rails_timer_hash.get(growl_cell.id);
+    clearTimeout(timer);
+  }
+};
+
+Growl4Rails.mouseOut = function(event) {
+  //bunch of hoo-ha to make sure we're not handling bubbled mouseover events.
+  var relatedTarget = event.relatedTarget;
+  var currentTarget = event.currentTarget ? event.currentTarget : event.srcElement;           
+  if (relatedTarget && relatedTarget.nodeType == Node.TEXT_NODE) relatedTarget = relatedTarget.parentNode;   
+  if (relatedTarget && relatedTarget != currentTarget && !Element.descendantOf(relatedTarget, currentTarget)) {
+    growl_cell = Growl4Rails.findGrowlIdByDescendant(Event.findElement(event));
+    mouseOverClasses.each(function(item) {
+     $$('#' + growl_cell.id + ' .' + item)[0].toggleClassName(item + '_hi');
+    });
+    var timer = setTimeout("Growl4Rails.hideGrowl('" + growl_cell.id + "')", growl4rails_duration);
+    growl4rails_timer_hash.set(growl_cell.id, timer);
+  }
+};
+
+Growl4Rails.click = function(event) {
+  growl_cell = Growl4Rails.findGrowlIdByDescendant(Event.findElement(event));
+  growl_cell.fire(growl_cell.id + ':clicked');
+};
+
+Growl4Rails.findGrowlIdByDescendant = function(descendant) {
+  //Thanks IE!!!
+  if(descendant.className == 'growl4rails_cell')
+    return descendant;
+    
+  var growl_cell;
+  descendant.ancestors().each(function(ancestor){
+    if(ancestor.className == 'growl4rails_cell')
+      growl_cell = ancestor;
+  });
+  return growl_cell
+};
+
+document.observe('growl4rails:lastgrowlshown', function(event) {
+  var i = 0;
+  while(growl4rails_queue.length != 0 && i < growl4rails_max_showing) {
+    Growl4Rails.showGrowl(growl4rails_queue.shift());
+    i++;
   }
 });
 
-var _growl;
+//Patch for getDimensions where parent is hidden, therefore can't get child dimensions:
+Element.addMethods({
+  getDimensionsPatched: function (element) { 
+      element = $(element);
+      var dimensions = {width: element.clientWidth, height: element.clientHeight}; 
 
-Event.observe(window, 'load', function(event) {
-  _growl = new Growl();
+      if ((dimensions.width || dimensions.height) == 0) { 
+        // All *Width and *Height properties give 0 on elements with display none, 
+        // or when ancestors have display none, so enable those temporarily 
+        var restore = element.ancestors(function(element) { return !element.visible() }), 
+        styles = []; 
+        restore.push(element); 
+
+        restore.each(function(r) { 
+          styles.push({ 
+            display: r.getStyle('display'), 
+            position: r.getStyle('position'), 
+            visibility: r.getStyle('visibility') 
+          }); 
+          r.setStyle({display: 'block', position: 'absolute', visibility: 'visible'}); 
+        }); 
+
+        dimensions = {width: element.clientWidth, height: element.clientHeight}; 
+        restore.each(function(r, index) { 
+          r.setStyle(styles[index]); 
+        }); 
+      } 
+      return dimensions;         
+  }//getDimensions
 });
-
-Growl.show = function(img, title, message, duration) {
-  if(!_growl) _growl = new Growl();
-  _growl.show(img, title, message, duration);
-};
-
-Growl.hide = function() {
-  if(!_growl) return;
-  _growl.hide();
-};
-
-Growl.cancelTimeout = function() {
-  if(!_growl) return;
-  _growl.cancelTimeout();
-}
-
-Growl.highlight = function() {
-  if(!_growl) return;
-  _growl.highlight();
-}
-
-Growl.unhighlight = function() {
-  if(!_growl) return;
-  _growl.unhighlight();
-}
-
-Growl.setShowing = function() {
-  if(!_growl) return;
-   _growl.showing = false;
-}

@@ -1,87 +1,83 @@
-#growl_container {
-  position: absolute; 
-  top: 10px;
+.growl4rails_cell {
+  position: absolute;
   width: 379px;
-  z-index: 1001;
   cursor:pointer;
   cursor:hand;
 }
-#growl_tl {
-  position: absolute; 
-  top: 10px;
+.growl4rails_corner_ul {
   width: 39px;
   height: 41px;
-  z-index: 1000;
+  background-image: url(/images/growl4rails/corner_ul.png);
 }
-#growl_top {
-  position: absolute; 
-  top: 10px;
+.growl4rails_corner_ul_hi {
+  background-image: url(/images/growl4rails/corner_ul_hi.png);
+}
+.growl4rails_corner_ur {
+  width: 39px;
+  height: 41px;
+  background-image: url(/images/growl4rails/corner_ur.png);
+}
+.growl4rails_corner_ur_hi {
+  background-image: url(/images/growl4rails/corner_ur_hi.png);
+}
+.growl4rails_corner_ll {
+  width: 39px;
+  height: 41px;
+  background-image: url(/images/growl4rails/corner_ll.png);
+}
+.growl4rails_corner_ll_hi {
+  background-image: url(/images/growl4rails/corner_ll_hi.png);
+}
+.growl4rails_corner_lr {
+  width: 39px;
+  height: 41px;
+  background-image: url(/images/growl4rails/corner_lr.png);
+}
+.growl4rails_corner_lr_hi {
+  background-image: url(/images/growl4rails/corner_lr_hi.png);
+}
+.growl4rails_top {
   width: 301px;
-  height: 26px;
-  z-index: 1000;
+  height: 41px;
   background-image: url(/images/growl4rails/top.png);
   background-repeat: repeat-x;
 }
-#growl_tr {
-  position: absolute; 
-  top: 10px;
-  width: 39px;
-  height: 41px;
-  z-index: 1000;
+.growl4rails_top_hi {
+  background-image: url(/images/growl4rails/top_hi.png);
 }
-#growl_left {
-  position: absolute; 
-  top: 51px;
-  width: 39px;
-  z-index: 1000;
-  background-image: url(/images/growl4rails/left.png);
-  background-repeat: repeat-y;
-}
-#growl_body {
-  position: absolute;
-  top: 36px;
-  width: 301px;
-  z-index: 1000;
+.growl4rails_body {
+  width: 379px;
   background-image: url(/images/growl4rails/body.png);
   background-repeat: repeat-y;
-  color: #FFF;
-  font-family: arial;
 }
-#growl_right {
-  position: absolute; 
-  top: 51px;
-  width: 39px;
-  z-index: 1000;
-  background-image: url(/images/growl4rails/right.png);
-  background-repeat: repeat-y;
+.growl4rails_body_hi {
+  background-image: url(/images/growl4rails/body_hi.png);
 }
-#growl_body .growl_title {
-  font-size: 11pt;
-  font-weight: bold;
-}
-#growl_bl {
-  position: absolute; 
-  width: 39px;
-  height: 41px;
-  z-index: 1000;
-}
-#growl_bottom {
-  position: absolute; 
+.growl4rails_bottom {
   width: 301px;
-  height: 32px;
-  z-index: 1000;
+  height: 41px;
   background-image: url(/images/growl4rails/bottom.png);
   background-repeat: repeat-x;
 }
-#growl_br {
-  position: absolute;
-  width: 39px;
-  height: 41px;
-  z-index: 1000;
+.growl4rails_bottom_hi {
+  background-image: url(/images/growl4rails/bottom_hi.png);
 }
-#growl_ico {
-  width: 32px;
-  height: 32px;
-  z-index: 1000;
-  padding-right: 5px;
+.growl4rails_info {
+  position: absolute;
+  width: 320px;
+  overflow: hidden;
+}
+.growl4rails_image {
+  padding: 2px;
+}
+.growl4rails_title {
+  color: #FFF;
+  font-size: 11pt;
+  font-family: arial;
+  font-weight: bold;
+}
+.growl4rails_message {
+  color: #FFF;
+  font-size: 10pt;
+  font-family: arial;
 }
