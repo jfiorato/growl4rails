@@ -2,7 +2,6 @@
   position: absolute;
   width: 379px;
   cursor:pointer;
-  cursor:hand;
 }
 .growl4rails_corner_ul {
   width: 39px;
@@ -66,18 +65,22 @@
   position: absolute;
   width: 320px;
   overflow: hidden;
+  cursor:pointer;
 }
 .growl4rails_image {
   padding: 2px;
+  cursor:pointer;
 }
 .growl4rails_title {
   color: #FFF;
   font-size: 11pt;
   font-family: arial;
   font-weight: bold;
+  cursor:pointer;
 }
 .growl4rails_message {
   color: #FFF;
   font-size: 10pt;
   font-family: arial;
+  cursor:pointer;
 }
