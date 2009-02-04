@@ -2,6 +2,7 @@
   position: absolute;
   width: 379px;
   cursor:pointer;
+  z-index: 99;
 }
 .growl4rails_corner_ul {
   width: 39px;
@@ -66,6 +67,7 @@
   width: 320px;
   overflow: hidden;
   cursor:pointer;
+  z-index: 99;
 }
 .growl4rails_image {
   padding: 2px;
