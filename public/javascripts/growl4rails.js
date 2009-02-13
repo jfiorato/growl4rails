@@ -24,7 +24,7 @@ var templateHTML = '<div id="#{id}" class="growl4rails_cell" style="display:none
 </table>\
 </div>\
 <div id="growl4rails_info_#{id}" class="growl4rails_info" style="display:none;">\
-  <img src="#{img}" class="growl4rails_image" align="left" />\
+  <div class="growl4rails_image" style="#{img_style}"></div>\
   <div class="growl4rails_title">#{title}</div>\
   <div class="growl4rails_message">#{message}<div>\
 </div>';
@@ -53,10 +53,18 @@ Growl4Rails.showGrowl = function(arguments) {
     growl4rails_current_showing++;
     
     //add it to the document
+    
+    //IE6 PNG fix for icons
+    var img_path = $H(arguments).get('image_path');
+    var is_png = (img_path.substring(img_path.length-3, img_path.length).toUpperCase() == "PNG")
+    var img_style = 'background-image:url(' + img_path + ');background-repeat: no-repeat;';
+    if (Prototype.Browser.IE && navigator.userAgent.match(/MSIE [456]/) && is_png) {
+      img_style = 'filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\'' + img_path + '\');';
+    }
     var data = {
       id:growl_cell_id, 
       title:$H(arguments).get('title'), 
-      img:$H(arguments).get('image_path'), 
+      img_style:img_style, 
       message:$H(arguments).get('message')
     };
     
@@ -119,11 +127,17 @@ Growl4Rails.showGrowl = function(arguments) {
 Growl4Rails.hideGrowl = function(growl_cell_id) {
   growl4rails_timer_hash.unset(growl_cell_id);
   if(Prototype.Browser.IE) {
-    $('growl4rails_info_' + growl_cell_id).hide();
-    $(growl_cell_id).hide();
+    if($('growl4rails_info_' + growl_cell_id))
+      $('growl4rails_info_' + growl_cell_id).hide();
+    
+    if($(growl_cell_id))
+      $(growl_cell_id).hide();
   } else {
-    Effect.Fade('growl4rails_info_' + growl_cell_id, { duration: 1.0 });
-    Effect.Fade(growl_cell_id, { duration: 1.0 });
+    if($('growl4rails_info_' + growl_cell_id))
+      Effect.Fade('growl4rails_info_' + growl_cell_id, { duration: 1.0 });
+    
+    if($(growl_cell_id))
+      Effect.Fade(growl_cell_id, { duration: 1.0 });
   }
     
   setTimeout("Growl4Rails.removeGrowl('" + growl_cell_id + "')", 1000);
@@ -131,7 +145,11 @@ Growl4Rails.hideGrowl = function(growl_cell_id) {
 
 Growl4Rails.removeGrowl = function(growl_cell_id) {
   growl4rails_current_showing--;
-  $(growl_cell_id).remove();
+  if($('growl4rails_info_' + growl_cell_id))
+    $('growl4rails_info_' + growl_cell_id).remove();
+    
+  if($(growl_cell_id))
+    $(growl_cell_id).remove();
   
   //if this is the last growl, fire an event so we can show more, if there are any
   if(growl4rails_current_showing == 0) {
