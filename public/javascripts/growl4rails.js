@@ -2,7 +2,7 @@ var templateHTML = '<div id="#{id}" class="growl4rails_cell" style="display:none
 <table cellspacing="0" cellpadding="0">\
   <thead>\
     <tr>\
-      <td><div class="growl4rails_corner_ul"></div></td>\
+      <td><div class="growl4rails_corner_ul" id="growl4rails_close"></div></td>\
       <td><div class="growl4rails_top"></div></td>\
       <td><div class="growl4rails_corner_ur"></div></td>\
     </tr>\
@@ -192,9 +192,11 @@ Growl4Rails.mouseOut = function(event) {
 };
 
 Growl4Rails.click = function(event) {
-  growl_cell = Growl4Rails.findGrowlIdByDescendant(Event.findElement(event));
+  var element = Event.findElement(event);
+  var growl_cell = Growl4Rails.findGrowlIdByDescendant(element);
   Growl4Rails.hideGrowl(growl_cell.id);
-  growl_cell.fire(growl_cell.id + ':clicked');
+  if(element.id != 'growl4rails_close')
+    growl_cell.fire(growl_cell.id + ':clicked');
 };
 
 Growl4Rails.findGrowlIdByDescendant = function(descendant) {
