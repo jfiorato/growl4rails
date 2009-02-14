@@ -169,7 +169,7 @@ Growl4Rails.mouseOver = function(event) {
   if (relatedTarget && relatedTarget != currentTarget && !Element.descendantOf(relatedTarget, currentTarget) && !relatedTarget.ancestors().any(function(n) { return n.hasClassName('growl4rails_info'); })) {
     growl_cell = Growl4Rails.findGrowlIdByDescendant(Event.findElement(event));
     mouseOverClasses.each(function(item) {
-     $$('#' + growl_cell.id + ' .' + item)[0].toggleClassName(item + '_hi');
+     $$('#' + growl_cell.id + ' .' + item)[0].addClassName(item + '_hi');
     });
     timer = growl4rails_timer_hash.get(growl_cell.id);
     clearTimeout(timer);
@@ -184,7 +184,7 @@ Growl4Rails.mouseOut = function(event) {
   if (relatedTarget && relatedTarget != currentTarget && !Element.descendantOf(relatedTarget, currentTarget) && !relatedTarget.ancestors().any(function(n) { return n.hasClassName('growl4rails_info'); })) {
     growl_cell = Growl4Rails.findGrowlIdByDescendant(Event.findElement(event));
     mouseOverClasses.each(function(item) {
-     $$('#' + growl_cell.id + ' .' + item)[0].toggleClassName(item + '_hi');
+     $$('#' + growl_cell.id + ' .' + item)[0].removeClassName(item + '_hi');
     });
     var timer = setTimeout("Growl4Rails.hideGrowl('" + growl_cell.id + "')", growl4rails_duration);
     growl4rails_timer_hash.set(growl_cell.id, timer);
