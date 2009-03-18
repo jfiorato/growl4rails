@@ -37,6 +37,20 @@ var growl4rails_queue = [];
 var growl4rails_limit_reached = false;
 var growl4rails_timer_hash = new Hash();
 
+//pre-load images:
+var growl4rails_images = ['body','bottom','corner_ll','corner_lr','corner_ul','corner_ur','top'];
+growl4rails_images.each(function(img) {
+  ext = '.png';
+  if (Prototype.Browser.IE && navigator.userAgent.match(/MSIE [456]/)) {
+    ext = '.gif';
+  }
+  var loadingImg = new Image();
+  loadingImg.src = '/images/growl4rails/' + img + ext;
+  
+  var loadingHiImg = new Image();
+  loadingHiImg.src = '/images/growl4rails/' + img + '_hi' + ext;
+});
+
 var Growl4Rails = Class.create();
 
 Growl4Rails.showGrowl = function(arguments) {
